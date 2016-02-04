@@ -45,7 +45,22 @@ def hello(request,pk=None):
     if pk is None:
         return HttpResponse("Hola quien seas!")
     else:
-        return HttpResponse("Hola "+pk)
+        arreglo = pk.split("1")
+        tam = ""
+        mark=""
+        typ=""
+        team=""
+        for i in arreglo:
+            if Marca.objects.filter(name=i):
+                tam=tam+" <strong>"+i+"</strong> "
+            if Tipo.objects.filter(name=i):
+                tam=tam+" <i>"+i+"</i> "
+            if Equipo.objects.filter(name=i):
+                tam=tam+" <u>"+i+"</u> "
+            if tam=="":
+                tam="no hay coincidencias"
+
+        return HttpResponse(tam)
 
    
     # def get_object(request, pk):
